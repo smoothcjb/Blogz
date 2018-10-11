@@ -29,17 +29,16 @@ def new_post():
         title = request.form['title']
         blog_entry = request.form['blog_entry']
         new_post = Blog(title,blog_entry)
-        db.session.add(new_post)
-        db.session.commit()
-        if re.search('\w',blog_entry):
+        if re.search('\w',blog_entry) and not re.search('\w',title):
             return render_template('newpost.html', page_title="Add a Blog Entry", title_message=title_message, title=title, blog_entry=blog_entry)
         elif not re.search('\w',title):
             return render_template('newpost.html', page_title="Add a Blog Entry", title_message=title_message, body_message=body_message, title=title, blog_entry=blog_entry)
         elif not re.search('\w',blog_entry): 
             return render_template('newpost.html', page_title="Add a Blog Entry", body_message=body_message, title=title, blog_entry=blog_entry)   
-        
         else:
-            return redirect('/blog')    
+            db.session.add(new_post)
+            db.session.commit()
+        return redirect('/blog')    
     return render_template('newpost.html', page_title="Add a Blog Entry")
  
 
@@ -47,6 +46,8 @@ def new_post():
 def index():
     blog_posts = Blog.query.all()
     return render_template('blog.html', page_title='Build a Blog', blog_posts=blog_posts) 
+
+
          
 
 

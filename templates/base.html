@@ -27,21 +27,10 @@
 </head>
 <body>
         <a href='/blog'>Main Blog Page</a>
-        <a href = '/newpost'>Add a Blog Entry</a>
-{% with messages = get_flashed_messages(with_categories=True) %}
-    <ul>
-    {% for category,message in messages%}
-        <li class = "{{category}}" style = "color: lime;">{{message}}</li>
-
-    {% endfor %}
-    </ul>
-    
-{% endwith %}       
+        <a href = '/newpost'>Add a Blog Entry</a> 
     
 {% block content %}
-{% endblock %}
-        
-    
+{% endblock %}  
 
 </body>
 
