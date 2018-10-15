@@ -6,8 +6,10 @@
 <h1>Build a Blog</h1>
 
   {% for blog in blog_posts %}
+  
   <h2><a href= "{{url_for('main_blog', id=blog.id)}}">{{blog.title}}</a></h2>
   <p>{{blog.message}}</p>
+  <h6>Published on {{blog.pub_date}}.</h6>
   <hr />
    
   {% endfor %} 

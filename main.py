@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import re
 
 app = Flask(__name__)
@@ -13,10 +14,14 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     message = db.Column(db.String(255)) 
+    pub_date = db.Column(db.DateTime)
 
-    def __init__(self, title, message):
+    def __init__(self, title, message, pub_date=None):
         self.title = title
         self.message = message
+        if pub_date is None:
+            pub_date = datetime.utcnow()
+        self.pub_date = pub_date
               
 
 @app.route('/newpost', methods=['POST','GET'])
@@ -29,7 +34,8 @@ def new_post():
     if request.method == 'POST':
         title = request.form['title']
         message = request.form['message']
-        new_post = Blog(title,message)
+        pub_date = datetime.now()
+        new_post = Blog(title,message,pub_date)
         if re.search('\w',message) and not re.search('\w',title):
             return render_template('newpost.html', page_title="Add a Blog Entry", title_error=title_error, title=title, message=message)
         elif not re.search('\w',title):
