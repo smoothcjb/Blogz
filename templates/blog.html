@@ -2,30 +2,19 @@
 
 
 {% block content %}
-   <h1>Build a Blog</h1>
-   
-{% for blog in blog_posts %}
 
-  
-  <h2>{{blog.title}}</h2>
-  <p>{{blog.blog_entry}}</p>
+<h1>Build a Blog</h1>
+
+  {% for blog in blog_posts %}
+  <h2><a href= "{{url_for('main_blog', id=blog.id)}}">{{blog.title}}</a></h2>
+  <p>{{blog.message}}</p>
   <hr />
    
-  {% endfor %}
+  {% endfor %} 
     
-
-    
-  
-
-      
-  
-
-    
-
 
    
-
-    {% endblock %}
+{% endblock %}
 
   
 

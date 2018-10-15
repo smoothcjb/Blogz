@@ -3,19 +3,19 @@
 
 {% block content %}
    <h1>Add a Blog Entry</h1>
-   <form method="post">
+   <form method = 'post' >
        <label>
            <div>Title for your new blog: </div> 
            <input type='text' name='title' value='{{title}}'/>
         </label>
-        <p class='message'>{{title_message}}</p>
+        <p class='error'>{{title_error}}</p>
         <br>
     
        <label>
           <div>Your new blog:</div>
-           <textarea name = 'blog_entry'>{{blog_entry}}</textarea>
+           <textarea name = 'message'>{{message}}</textarea>
         </label>
-        <p class='message'>{{body_message}}</p>
+        <p class='error'>{{body_error}}</p>
         <br>
        <input type='submit' value='Add Entry'/>
     </form>
