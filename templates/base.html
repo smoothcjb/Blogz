@@ -19,10 +19,13 @@
         color: red;
         font-style: italic
     }
+    .status{
+        font-style: italic;
+    }    
+    
     h6{
         font-style: italic;
         color: darkgrey;
-
     }
 
 
@@ -38,11 +41,23 @@ a:active {
     text-decoration: underline;
   }
 
+
+
     </style>
 </head>
 <body>
+        <a href ='/'>Home</a>
         <a href="{{url_for('main_blog')}}">Main Blog Page</a>
         <a href = '/newpost'>Add a Blog Entry</a> 
+        <a href = '/login'>Log In</a>
+        <a style ="float: right;" href = '/logout'>Sign Out</a>
+    <div>
+        {% with messages = get_flashed_messages(with_categories=True)%}
+          {% for category,message in messages %}
+            <h3 class='{{category}}'>{{message}}</h3>
+          {% endfor %}
+        {% endwith %}
+    </div>    
     
 {% block content %}
 {% endblock %}  
