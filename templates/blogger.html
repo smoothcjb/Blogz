@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1> Blog Posts by: {{username}}</h1>
+
+{% for blog in blogger.blogs %}
+
+  <h6 hidden>{{blog.owner_id}}</h6>
+  <h2><a href= "{{url_for('blog', id=blog.id)}}">{{blog.title}}</a></h2>
+  <p>{{blog.message}}</p>
+  <h6>Published on {{blog.pub_date}}.</h6>
+  <hr />
+   
+  {% endfor %} 
+
+
+   
+
+{% endblock %}

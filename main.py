@@ -38,7 +38,7 @@ class User(db.Model) :
 
 @app.before_request
 def require_login():
-    allowed_routes= ['login', 'signup', 'main_blog', 'index']
+    allowed_routes= ['login', 'signup', 'blog', 'index']
     if request.endpoint not in allowed_routes and 'username' not in session:
         flash("Login required.",'error')
         return redirect('/login')        
@@ -58,11 +58,11 @@ def new_post():
         pub_date = datetime.now()
         new_post = Blog(title,message, owner, pub_date)
         if re.search('\w',message) and not re.search('\w',title):
-            return render_template('newpost.html', page_title="Add a Blog Entry", title_error=title_error, title=title, message=message)
+            return render_template('newpost.html', title_error=title_error, title=title, message=message)
         elif not re.search('\w',title):
-            return render_template('newpost.html', page_title="Add a Blog Entry", title_error=title_error, body_error=body_error, title=title, message=message)
+            return render_template('newpost.html', title_error=title_error, body_error=body_error, title=title, message=message)
         elif not re.search('\w',message): 
-            return render_template('newpost.html', page_title="Add a Blog Entry", body_error=body_error, title=title, message=message)   
+            return render_template('newpost.html', body_error=body_error, title=title, message=message)   
         else:
             db.session.add(new_post)
             db.session.commit()
@@ -70,20 +70,28 @@ def new_post():
         for blog in blog_posts:
             id = blog.id
         return redirect('/blog?id={0}'.format(id))
-    return render_template('newpost.html', page_title="Add a Blog Entry")  
+    return render_template('newpost.html')  
 
 @app.route('/blog')
-def main_blog():
-    blog_posts = ''
+def blog():
     id = request.args.get('id')
+    user_id = request.args.get('user')
+    blog_posts = Blog.query.all()
     if id != None:
         blog_post = Blog.query.get(id)
         title = blog_post.title
         message = blog_post.message
-        return render_template('display.html', id=id, title=title, message=message)
+        owner_id = blog_post.owner_id 
+        date = blog_post.pub_date
+        owner = blog_post.owner.username
+        return render_template('display.html', id=id, title=title, message=message, owner_id=owner_id, owner=owner, date=date)
+    elif user_id != None:
+        id = user_id
+        blogger = User.query.filter_by(id=id).first()
+        username = blogger.username
+        return render_template('blogger.html', blogger=blogger, id=id, username=username)
     else:
-        blog_posts = Blog.query.all()
-        return render_template('blog.html', page_title='Build a Blog', blog_posts=blog_posts) 
+        return render_template('blog.html', blog_posts=blog_posts) 
 
 @app.route('/login', methods=['POST','GET'])   
 def login():
@@ -128,13 +136,23 @@ def signup():
             flash('Username already taken.','error')  
     return render_template('signup.html')
 
+@app.route('/')
+def index():
+    bloggers = User.query.all()
+    return render_template('index.html', page_title = "Bloggers", bloggers=bloggers)
+
+
 @app.route('/logout')
 def logout():
     del session['username']
     flash('You have signed out successfully.','status')
     return redirect('/blog')
 
-
-
+@app.route('/test') 
+def test():
+    username = "Scarface"
+    blogger = User.query.filter_by(username=username).first()
+    return render_template('blogger.html', blogger=blogger, username=username)
+    
 if __name__ == '__main__':
     app.run()
