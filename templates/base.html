@@ -1,58 +1,22 @@
 <!DOCTYPE html>
 <html> 
 <head>
-    <style>
-    h1{
-          text-align: center;
-          color: #577A95;
-          font-family: Arial, Helvetica, sans-serif;
-          font-style: italic;
-        }
-    hr{
-        opacity: .15;
-    }
-    body{
-        background-color: rgb(235, 235, 252);
-    }
-    .error{
-        color: red;
-        font-style: italic
-    }
-    .status{
-        font-style: italic;
-    }    
-    
-    h5{
-        font-style: italic;
-        color: darkgrey;
-    }
-
-
-a:visited {
-    text-decoration: none;
-   }
-
-a:hover {
-    text-decoration: underline;
-  }
-
-a:active {
-    text-decoration: underline;
-  }
-
-#login{
-    background-color: rgb(66, 209, 66);
-    color: #fff;
-}  
-
-    </style>
+   <title>{{page_title}}</title>
+   <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename ='style.css') }}">
 </head>
 <body>
-        <a href ='/'>Home</a>
-        <a href="{{url_for('blog')}}">Blog</a>
-        <a href = '/newpost'>Add a Blog Entry</a> 
+
+    <header>
+      <nav>
+        
+        <a href="{{url_for('blog')}}">Blogz</a>|
+        <a href = '/newpost'>Add a Blog Entry</a>|
+        <a href ='/'>Bloggers</a>|
         <a href = '/login'>Sign In</a>
         <a style ="float: right;" href = '/logout'>Sign Out</a>
+      </nav>
+    </header>
+        
     <div>
         {% with messages = get_flashed_messages(with_categories=True)%}
           {% for category,message in messages %}
@@ -60,10 +24,8 @@ a:active {
           {% endfor %}
         {% endwith %}
     </div>    
-    
-{% block content %}
+{% block content %}   
 {% endblock %}  
-
 </body>
-
 </html>
+

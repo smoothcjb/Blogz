@@ -1,0 +1,49 @@
+
+h1{
+    text-align: center;
+    color: #577A95;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+  }
+hr{
+  opacity: .15;
+}
+body{
+  background-color: rgb(235, 235, 252);
+}
+.error{
+  color: red;
+  font-style: italic
+}
+.status{
+  font-style: italic;
+}    
+
+h5{
+  font-style: italic;
+  color: darkgrey;
+}
+
+
+a:visited {
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+a:active {
+text-decoration: underline;
+}
+
+#login_button{
+background-color: rgb(66, 209, 66);
+color: #fff;
+}  
+
+#login{
+
+  border: 1px dashed gray;  
+
+}

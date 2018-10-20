@@ -38,7 +38,7 @@ class User(db.Model) :
 
 @app.before_request
 def require_login():
-    allowed_routes= ['login', 'signup', 'blog', 'index']
+    allowed_routes= ['login', 'signup', 'blog', 'index', 'static']
     if request.endpoint not in allowed_routes and 'username' not in session:
         flash("Login required.",'error')
         return redirect('/login')        
@@ -76,7 +76,7 @@ def new_post():
 def blog():
     id = request.args.get('id')
     user_id = request.args.get('user')
-    blog_posts = Blog.query.all()
+    blog_posts = Blog.query.order_by(Blog.pub_date.desc()).all()
     if id != None:
         blog_post = Blog.query.get(id)
         title = blog_post.title
@@ -91,7 +91,7 @@ def blog():
         username = blogger.username
         return render_template('blogger.html', blogger=blogger, id=id, username=username)
     else:
-        return render_template('blog.html', blog_posts=blog_posts) 
+        return render_template('blog.html', page_title = 'Blogz', blog_posts=blog_posts) 
 
 @app.route('/login', methods=['POST','GET'])   
 def login():
@@ -139,7 +139,7 @@ def signup():
 @app.route('/')
 def index():
     bloggers = User.query.all()
-    return render_template('index.html', page_title = "Bloggers", bloggers=bloggers)
+    return render_template('index.html', page_title = "Blogz", bloggers=bloggers)
 
 
 @app.route('/logout')
@@ -148,11 +148,8 @@ def logout():
     flash('You have signed out successfully.','status')
     return redirect('/blog')
 
-@app.route('/test') 
-def test():
-    username = "Scarface"
-    blogger = User.query.filter_by(username=username).first()
-    return render_template('blogger.html', blogger=blogger, username=username)
+ 
+
     
 if __name__ == '__main__':
     app.run()
