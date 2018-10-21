@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, session, flash, url
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import re
+from hashutils import create_hash, verify_hash 
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -28,12 +29,12 @@ class Blog(db.Model):
 class User(db.Model) :
     id = db.Column(db.Integer, primary_key=True)  
     username = db.Column(db.String(120), unique= True)     
-    password = db.Column(db.String(120))
+    pw_hash = db.Column(db.String(120))
     blogs = db.relationship('Blog', backref='owner')
 
     def __init__(self, username, password,):
         self.username = username
-        self.password = password
+        self.pw_hash = create_hash(password)
 
 
 @app.before_request
@@ -99,7 +100,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
-        if user and user.password == password:
+        if user and verify_hash(password, user.pw_hash):
             session['username'] = username
             greeting = 'Hello, ' + username + '!'
             flash(greeting,'status')
@@ -147,9 +148,6 @@ def logout():
     del session['username']
     flash('You have signed out successfully.','status')
     return redirect('/blog')
-
- 
-
     
 if __name__ == '__main__':
     app.run()
