@@ -2,9 +2,10 @@
 
 {% block content %}
 
-<h1>Sign in to Blogz!</h1>
-<div id='login'>
+<div class ='login'>
+<h1>Welcome to Blogz!</h1>
 <form action="/login" method="post">
+  
     <table>
         <tr>
             <td><label for="username">Username</label></td>
@@ -20,7 +21,8 @@
         </tr>
     </table>
     <input id = 'login_button' type="submit" value="Sign In">
+  <p>New to Blogz? <a href="/signup">Create an account</a>.</p>   
 </form>
-<p>New to Blogz? <a href="/signup">Create an account</a>.</p>
+
 </div>
 {% endblock %}

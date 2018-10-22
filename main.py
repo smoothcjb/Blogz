@@ -105,7 +105,7 @@ def login():
             greeting = 'Hello, ' + username + '!'
             flash(greeting,'status')
             return redirect('/newpost')
-        elif user and user.password != password:
+        elif user and not verify_hash(password, user.pw_hash):
             flash('Invalid Password','error')
         else:
             flash('Invalid Username','error')    

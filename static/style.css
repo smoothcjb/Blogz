@@ -1,7 +1,17 @@
+.container{
+  display: grid;
+  grid-template-areas: "header"
+}
+header{
+
+  background-color: #000;
+  height: 65px;
+  
+}
 
 h1{
     text-align: center;
-    color: #577A95;
+    color: rgb(15, 14, 14); 
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
   }
@@ -9,7 +19,7 @@ hr{
   opacity: .15;
 }
 body{
-  background-color: rgb(235, 235, 252);
+  background-color: #fff;
 }
 .error{
   color: red;
@@ -17,6 +27,7 @@ body{
 }
 .status{
   font-style: italic;
+  
 }    
 
 h5{
@@ -24,30 +35,56 @@ h5{
   color: darkgrey;
 }
 
+a:link{
+  text-decoration: none;
+ 
+  
+  
+}
 
 a:visited {
 text-decoration: none;
+color: purple;
+
 }
 
 a:hover {
-text-decoration: underline;
+text-decoration: none;
 }
 
 a:active {
-text-decoration: underline;
+text-decoration: none;
+color: purple;
 }
 
 #login_button{
 background-color: rgb(66, 209, 66);
 color: #fff;
+
 }  
 
-#login{
-
-  border: 1px dashed gray;  
+.login {
+   display: grid;
+   padding-bottom: 50px;
+   padding-top: 20px;
+   margin: 100px 400px 0px 400px;
+   border: 1px dotted gray;
+   align-items: center;
+   justify-items: center;
+  
+   
 }
 #display{
-
-  text-align: center;
   
+  text-align: center;
 }
+ 
+nav{
+  color: white;
+  background-color: rgb(44, 40, 40);
+  height: 30px;
+  padding: 5px 10px 0px 10px; 
+}
+
+
+

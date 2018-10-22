@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html> 
+<html lang="en"> 
 <head>
    <title>{{page_title}}</title>
+   <meta charset="utf-8">
+   <meta name='viewpoint' content ='width=device-width, initial-scale=1'>
    <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename ='style.css') }}">
 </head>
 <body>
-
+<div class = 'container'>
     <header>
-      <nav>
-        
-        <a href="{{url_for('blog')}}">Blogz</a>|
-        <a href = '/newpost'>Add a Blog Entry</a>|
-        <a href ='/'>Bloggers</a>|
-        <a href = '/login'>Sign In</a>
-        <a style ="float: right;" href = '/logout'>Sign Out</a>
+      <div>
+      <h1 style="text-align:start; padding-left: 80px;"><a href="{{url_for('blog')}}">Blogz</a></h1>
+      </div>
+    </div>
+      <nav> 
+       
+       <a style = 'color: whitesmoke; padding-right: 5px;' href = '/newpost'>Add a Blog</a>|
+       <a style = 'color: whitesmoke; padding-right: 5px;' href ='/'>Bloggers</a>|
+       <a style = 'float: right; color: whitesmoke;' href = '/login'>Sign In / Register</a>
+       <a style = 'color: whitesmoke;' href = '/logout'>Sign Out</a>
       </nav>
+    </div>
     </header>
         
     <div>
@@ -25,7 +31,8 @@
         {% endwith %}
     </div>    
 {% block content %}   
-{% endblock %}  
+{% endblock %} 
+</div> 
 </body>
 </html>
 
