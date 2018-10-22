@@ -102,7 +102,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and verify_hash(password, user.pw_hash):
             session['username'] = username
-            greeting = 'Hello, ' + username + '!'
+            greeting = 'Hello, ' + username 
             flash(greeting,'status')
             return redirect('/newpost')
         elif user and not verify_hash(password, user.pw_hash):
@@ -148,6 +148,8 @@ def logout():
     del session['username']
     flash('You have signed out successfully.','status')
     return redirect('/blog')
+
+ 
     
 if __name__ == '__main__':
     app.run()

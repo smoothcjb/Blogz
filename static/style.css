@@ -23,11 +23,11 @@ body{
 }
 .error{
   color: red;
-  font-style: italic
+  font-style: italic;
 }
+
 .status{
   font-style: italic;
-  
 }    
 
 h5{
@@ -37,8 +37,6 @@ h5{
 
 a:link{
   text-decoration: none;
- 
-  
   
 }
 
